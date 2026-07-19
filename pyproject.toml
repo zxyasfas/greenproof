@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "greenproof"
+version = "0.1.0"
+description = "Check that a coding agent earned its green test run instead of changing the tests."
+requires-python = ">=3.9"
+dependencies = ["pytest"]
+
+[project.scripts]
+greenproof = "greenproof.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

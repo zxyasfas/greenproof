@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.greenproof/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
