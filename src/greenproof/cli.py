@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 from . import report
-from .counterfactual import recover_if_interrupted, run_counterfactual
+from .counterfactual import LockHeld, recover_if_interrupted, run_counterfactual
 from .forensics import run_forensics
 from .snapshot import take_snapshot
 
@@ -25,7 +25,11 @@ def _verify(args) -> int:
         lines = "\n".join(f"  {rel}: {err}" for rel, err in failures)
         print(f"could not recover {len(failures)} file(s), your versions are kept:\n{lines}")
     forensics = run_forensics(args.baseline, args.repo)
-    cf = run_counterfactual(args.baseline, args.repo)
+    try:
+        cf = run_counterfactual(args.baseline, args.repo)
+    except LockHeld as exc:
+        print(str(exc))
+        return 1
     if args.json:
         print(report.to_json(forensics, cf))
     else:

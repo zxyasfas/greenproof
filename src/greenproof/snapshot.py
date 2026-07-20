@@ -7,7 +7,7 @@ import json
 import shutil
 from pathlib import Path
 
-from .discovery import find_test_surface
+from .discovery import find_test_surface, stays_in_root
 
 MANIFEST = "manifest.json"
 
@@ -34,6 +34,11 @@ def take_snapshot(root: Path, baseline_dir: Path) -> dict:
     records = []
     for rel in find_test_surface(root):
         src = root / rel
+        # find_test_surface already filters these out; re-checking here
+        # is defense in depth against the file changing between that call
+        # returning and this copy actually running.
+        if not stays_in_root(src, root):
+            continue
         dst = files_dir / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)

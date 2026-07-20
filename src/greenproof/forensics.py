@@ -130,16 +130,20 @@ def compare_file(rel_path: str, baseline_src: str, current_src) -> FileChanges:
 
 
 def run_forensics(baseline_dir: Path, root: Path) -> list:
+    from .discovery import stays_in_root
     from .snapshot import baseline_file, load_manifest
 
     manifest = load_manifest(baseline_dir)
-    root = Path(root)
+    root = Path(root).resolve()
     results = []
     for rec in manifest["files"]:
         rel = rec["path"]
         baseline_src = baseline_file(baseline_dir, rel).read_text(encoding="utf-8", errors="replace")
         cur_path = root / rel
-        current_src = cur_path.read_text(encoding="utf-8", errors="replace") if cur_path.exists() else None
+        # a file replaced by a symlink or a junctioned ancestor directory
+        # shouldn't have its link target read into the report
+        readable = cur_path.exists() and stays_in_root(cur_path, root)
+        current_src = cur_path.read_text(encoding="utf-8", errors="replace") if readable else None
         fc = compare_file(rel, baseline_src, current_src)
         if fc.has_changes():
             results.append(fc)

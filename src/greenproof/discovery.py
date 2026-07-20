@@ -15,6 +15,23 @@ SKIP_DIRS = {
 }
 
 
+def stays_in_root(path: Path, root: Path) -> bool:
+    """True if path resolves to somewhere under root.
+
+    A leaf-level symlink check (is_symlink()) misses a symlinked or junction
+    ancestor directory, and misses NTFS junctions entirely (they don't set
+    the reparse tag is_symlink() looks for, and junctions need no elevated
+    privilege to create on Windows). Resolving the full path and checking
+    containment catches both, since resolve() follows the link either way.
+    """
+    root = root.resolve()
+    try:
+        resolved = path.resolve()
+    except OSError:
+        return False
+    return resolved == root or root in resolved.parents
+
+
 def _collect_test_files(root: Path) -> set:
     """Ask pytest which files it collects, so project config decides, not a guess."""
     try:
@@ -52,11 +69,14 @@ def _looks_like_test(rel: Path) -> bool:
 
 def find_test_surface(root: Path) -> list[str]:
     root = Path(root).resolve()
-    found = {f for f in _collect_test_files(root) if (root / f).is_file()}
+    found = {
+        f for f in _collect_test_files(root)
+        if (root / f).is_file() and stays_in_root(root / f, root)
+    }
     used_pytest = bool(found)
 
     for path in root.rglob("*"):
-        if not path.is_file() or path.is_symlink():
+        if not path.is_file() or not stays_in_root(path, root):
             continue
         rel = path.relative_to(root)
         if any(part in SKIP_DIRS for part in rel.parts):
