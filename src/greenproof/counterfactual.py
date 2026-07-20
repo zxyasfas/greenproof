@@ -70,12 +70,14 @@ def _begin_journal(root: Path, restore_dir: Path, files: list) -> None:
     )
 
 
-def _replay_journal(restore_dir: Path) -> list:
+def _replay_journal(restore_dir: Path) -> tuple:
+    """Returns (restored_paths, failures). failures is (path, error) pairs."""
     sentinel = restore_dir / SENTINEL
     if not sentinel.exists():
-        return []
+        return [], []
     data = json.loads(sentinel.read_text(encoding="utf-8"))
     root = Path(data["root"])
+    restored = []
     failures = []
     for rec in data["files"]:
         rel = rec["path"]
@@ -85,15 +87,19 @@ def _replay_journal(restore_dir: Path) -> list:
                 _atomic_write(target, (restore_dir / "files" / rel).read_bytes())
             else:
                 _safe_unlink(target)
+            restored.append(rel)
         except OSError as exc:
             failures.append((rel, str(exc)))
     if not failures:
         shutil.rmtree(restore_dir, ignore_errors=True)
-    return failures
+    return restored, failures
 
 
-def recover_if_interrupted(baseline_dir: Path) -> list:
-    """Called at startup; restores a working tree left overwritten by a crash."""
+def recover_if_interrupted(baseline_dir: Path) -> tuple:
+    """Called at startup; restores a working tree left overwritten by a crash.
+
+    Returns (restored_paths, failures).
+    """
     return _replay_journal(_restore_dir(baseline_dir))
 
 
@@ -114,7 +120,7 @@ def run_counterfactual(baseline_dir: Path, root: Path) -> Counterfactual:
             _atomic_write(root / rel, baseline_file(baseline_dir, rel).read_bytes())
         original = run_pytest(root)
     finally:
-        failures = _replay_journal(restore_dir)
+        _restored, failures = _replay_journal(restore_dir)
         if failures:
             lines = "\n".join(f"  {rel}: {err}" for rel, err in failures)
             print(

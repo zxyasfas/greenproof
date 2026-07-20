@@ -18,9 +18,12 @@ def _snapshot(args) -> int:
 
 
 def _verify(args) -> int:
-    recovered = recover_if_interrupted(args.baseline)
-    if recovered:
-        print(f"recovered {len(recovered)} files from an interrupted earlier run")
+    restored, failures = recover_if_interrupted(args.baseline)
+    if restored:
+        print(f"recovered {len(restored)} file(s) from an interrupted earlier run")
+    if failures:
+        lines = "\n".join(f"  {rel}: {err}" for rel, err in failures)
+        print(f"could not recover {len(failures)} file(s), your versions are kept:\n{lines}")
     forensics = run_forensics(args.baseline, args.repo)
     cf = run_counterfactual(args.baseline, args.repo)
     if args.json:
