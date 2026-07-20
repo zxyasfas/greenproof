@@ -8,8 +8,11 @@ greenproof answers that directly: it snapshots your tests before the agent runs,
 
 ## install
 
+Not on PyPI yet.
+
 ```bash
-pip install greenproof
+git clone https://github.com/zxyasfas/greenproof
+pip install -e ./greenproof
 ```
 
 Needs Python 3.9+ and pytest. No network calls, no LLM, nothing leaves your machine.
