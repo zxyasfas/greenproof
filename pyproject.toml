@@ -6,8 +6,25 @@ build-backend = "setuptools.build_meta"
 name = "greenproof"
 version = "0.1.0"
 description = "Check that a coding agent earned its green test run instead of changing the tests."
+readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.9"
 dependencies = ["pytest"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.urls]
+Homepage = "https://github.com/zxyasfas/greenproof"
+Repository = "https://github.com/zxyasfas/greenproof"
+Issues = "https://github.com/zxyasfas/greenproof/issues"
 
 [project.scripts]
 greenproof = "greenproof.cli:main"
