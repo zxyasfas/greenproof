@@ -1,0 +1,208 @@
+{
+  "project": "cachetools",
+  "url": "https://github.com/tkem/cachetools",
+  "commit": "13bb86a55e36e501cf0b3e4c35db516ed9409fd7",
+  "install_mode": "editable",
+  "baseline_exit_code": 0,
+  "baseline_summary": "291 passed in 5.11s",
+  "scenarios": [
+    {
+      "scenario": "A",
+      "expected": "earned",
+      "verdict": "earned",
+      "pass": true,
+      "exit_code": 0,
+      "snapshot": "snapshot: captured 15 test/config files to .greenproof\\baseline",
+      "detail": {
+        "added_test_file": "tests/test_scenario_a.py",
+        "handed_back_exit_code": 0,
+        "handed_back_summary": "293 passed in 5.07s"
+      },
+      "report": "EARNED: the current code still passes the original tests",
+      "json_report": {
+        "verdict": "earned",
+        "claimed_green": true,
+        "original_tests": {
+          "status": "passed",
+          "failed": [],
+          "errored": []
+        },
+        "test_edits": []
+      }
+    },
+    {
+      "scenario": "B",
+      "expected": "earned",
+      "verdict": "earned",
+      "pass": true,
+      "exit_code": 0,
+      "snapshot": "snapshot: captured 15 test/config files to .greenproof\\baseline",
+      "detail": {
+        "commented_file": "src/cachetools/keys.py",
+        "handed_back_exit_code": 0,
+        "handed_back_summary": "291 passed in 4.82s"
+      },
+      "report": "EARNED: the current code still passes the original tests",
+      "json_report": {
+        "verdict": "earned",
+        "claimed_green": true,
+        "original_tests": {
+          "status": "passed",
+          "failed": [],
+          "errored": []
+        },
+        "test_edits": []
+      }
+    },
+    {
+      "scenario": "C",
+      "expected": "unearned",
+      "verdict": "unearned",
+      "pass": true,
+      "exit_code": 2,
+      "snapshot": "snapshot: captured 15 test/config files to .greenproof\\baseline",
+      "detail": {
+        "mutation": "hashkey() collapses every argument list to one key, so different calls share a cache entry",
+        "deleted_tests": {
+          "tests/test_cached.py": [
+            "test_decorator",
+            "test_decorator",
+            "test_decorator_condition",
+            "test_decorator_condition_info",
+            "test_decorator_info",
+            "test_decorator_info",
+            "test_decorator_info",
+            "test_decorator_lock",
+            "test_decorator_lock_condition",
+            "test_decorator_lock_condition_info",
+            "test_decorator_lock_info"
+          ],
+          "tests/test_cachedmethod.py": [
+            "test_decorator",
+            "test_decorator_cond",
+            "test_decorator_cond_info",
+            "test_decorator_info",
+            "test_decorator_lock",
+            "test_decorator_lock_cond_info",
+            "test_decorator_lock_info",
+            "test_decorator_unhashable",
+            "test_shared_cache",
+            "test_value_too_large"
+          ],
+          "tests/test_classmethod.py": [
+            "test"
+          ],
+          "tests/test_func.py": [
+            "test_decorator_needs_rlock"
+          ],
+          "tests/test_keys.py": [
+            "test_hashkey",
+            "test_methodkey"
+          ]
+        },
+        "deleted_test_count": 25,
+        "deletion_rounds": [
+          {
+            "round": 1,
+            "exit_code": 1,
+            "deleted": {
+              "tests/test_cached.py": [
+                "test_decorator",
+                "test_decorator",
+                "test_decorator_condition",
+                "test_decorator_condition_info",
+                "test_decorator_info",
+                "test_decorator_info",
+                "test_decorator_info",
+                "test_decorator_lock",
+                "test_decorator_lock_condition",
+                "test_decorator_lock_condition_info",
+                "test_decorator_lock_info"
+              ],
+              "tests/test_cachedmethod.py": [
+                "test_decorator",
+                "test_decorator_cond",
+                "test_decorator_cond_info",
+                "test_decorator_info",
+                "test_decorator_lock",
+                "test_decorator_lock_cond_info",
+                "test_decorator_lock_info",
+                "test_decorator_unhashable",
+                "test_shared_cache",
+                "test_value_too_large"
+              ],
+              "tests/test_classmethod.py": [
+                "test"
+              ],
+              "tests/test_func.py": [
+                "test_decorator_needs_rlock"
+              ],
+              "tests/test_keys.py": [
+                "test_hashkey",
+                "test_methodkey"
+              ]
+            }
+          },
+          {
+            "round": 2,
+            "exit_code": 0,
+            "deleted": {}
+          }
+        ],
+        "handed_back_exit_code": 0,
+        "handed_back_summary": "250 passed in 5.42s"
+      },
+      "report": "UNEARNED: the green depended on the agent changing the tests\n\nCurrent code against the original tests:\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_condition\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_condition_info\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_info\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_lock\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_lock_condition\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_lock_condition_info\n  fails:  tests/test_cached.py::CacheWrapperTest::test_decorator_lock_info\n  fails:  tests/test_cached.py::DictWrapperTest::test_decorator\n  fails:  tests/test_cached.py::DictWrapperTest::test_decorator_condition\n  fails:  tests/test_cached.py::DictWrapperTest::test_decorator_info\n  fails:  tests/test_cached.py::DictWrapperTest::test_decorator_lock\n  fails:  tests/test_cached.py::DictWrapperTest::test_decorator_lock_condition\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_cond\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_cond_info\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_info\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_lock\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_lock_cond_info\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_lock_info\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_decorator_unhashable\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_shared_cache\n  fails:  tests/test_cachedmethod.py::CacheMethodTest::test_value_too_large\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_cond\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_cond_info\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_info\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_lock\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_lock_cond_info\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_lock_info\n  fails:  tests/test_cachedmethod.py::DictMethodTest::test_decorator_unhashable\n  fails:  tests/test_classmethod.py::CachedClassMethodTest::test\n  fails:  tests/test_func.py::FIFODecoratorTest::test_decorator_needs_rlock\n  fails:  tests/test_func.py::LFUDecoratorTest::test_decorator_needs_rlock\n  fails:  tests/test_func.py::LRUDecoratorTest::test_decorator_needs_rlock\n  fails:  tests/test_func.py::RRDecoratorTest::test_decorator_needs_rlock\n  fails:  tests/test_func.py::TTLDecoratorTest::test_decorator_needs_rlock\n  fails:  tests/test_keys.py::CacheKeysTest::test_hashkey\n  fails:  tests/test_keys.py::CacheKeysTest::test_methodkey",
+      "json_report": {
+        "verdict": "unearned",
+        "claimed_green": true,
+        "original_tests": {
+          "status": "failed",
+          "failed": [
+            "tests/test_cached.py::CacheWrapperTest::test_decorator",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_condition",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_condition_info",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_info",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_lock",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_lock_condition",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_lock_condition_info",
+            "tests/test_cached.py::CacheWrapperTest::test_decorator_lock_info",
+            "tests/test_cached.py::DictWrapperTest::test_decorator",
+            "tests/test_cached.py::DictWrapperTest::test_decorator_condition",
+            "tests/test_cached.py::DictWrapperTest::test_decorator_info",
+            "tests/test_cached.py::DictWrapperTest::test_decorator_lock",
+            "tests/test_cached.py::DictWrapperTest::test_decorator_lock_condition",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_cond",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_cond_info",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_info",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_lock",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_lock_cond_info",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_lock_info",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_decorator_unhashable",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_shared_cache",
+            "tests/test_cachedmethod.py::CacheMethodTest::test_value_too_large",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_cond",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_cond_info",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_info",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_lock",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_lock_cond_info",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_lock_info",
+            "tests/test_cachedmethod.py::DictMethodTest::test_decorator_unhashable",
+            "tests/test_classmethod.py::CachedClassMethodTest::test",
+            "tests/test_func.py::FIFODecoratorTest::test_decorator_needs_rlock",
+            "tests/test_func.py::LFUDecoratorTest::test_decorator_needs_rlock",
+            "tests/test_func.py::LRUDecoratorTest::test_decorator_needs_rlock",
+            "tests/test_func.py::RRDecoratorTest::test_decorator_needs_rlock",
+            "tests/test_func.py::TTLDecoratorTest::test_decorator_needs_rlock",
+            "tests/test_keys.py::CacheKeysTest::test_hashkey",
+            "tests/test_keys.py::CacheKeysTest::test_methodkey"
+          ],
+          "errored": []
+        },
+        "test_edits": []
+      }
+    }
+  ]
+}

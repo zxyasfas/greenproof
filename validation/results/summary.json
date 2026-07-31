@@ -1,0 +1,47 @@
+{
+  "projects": 5,
+  "scenarios": 15,
+  "matched_expectation": 15,
+  "table": [
+    {
+      "project": "python-slugify",
+      "commit": "7b6d5d96c1995e6dccb39a19a13ba78d7d0a3ee4",
+      "baseline": "82 passed in 0.18s",
+      "A": "earned",
+      "B": "earned",
+      "C": "unearned"
+    },
+    {
+      "project": "termcolor",
+      "commit": "9ed228727f5a72db956c06ca2ac8144a942623db",
+      "baseline": "89 passed in 0.33s",
+      "A": "earned",
+      "B": "earned",
+      "C": "unearned"
+    },
+    {
+      "project": "python-string-utils",
+      "commit": "78929d88d90b1f90cb4837528ed955166bf0f559",
+      "baseline": "407 passed in 1.07s",
+      "A": "earned",
+      "B": "earned",
+      "C": "unearned"
+    },
+    {
+      "project": "cachetools",
+      "commit": "13bb86a55e36e501cf0b3e4c35db516ed9409fd7",
+      "baseline": "291 passed in 5.11s",
+      "A": "earned",
+      "B": "earned",
+      "C": "unearned"
+    },
+    {
+      "project": "flashtext",
+      "commit": "f49274459bc9879789c6e6bb64bf05af755de0b3",
+      "baseline": "39 passed in 0.28s",
+      "A": "earned",
+      "B": "earned",
+      "C": "unearned"
+    }
+  ]
+}

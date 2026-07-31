@@ -79,7 +79,9 @@ The per-test evidence (deleted, disabled, weakened assertions) is a static diff,
 
 ## tested against
 
-Ran this on five real open source projects (82 to 407 tests each: slugify, termcolor, python-string-utils, cachetools, flashtext), three scenarios per project: adding a real test, a no-op comment edit, and a constructed cheat (break a function, then delete or weaken exactly the tests that would have caught it). None of the legitimate edits were flagged, and every constructed cheat was caught. That's 15 hand-built scenarios, not a statistical benchmark, so treat it as "the mechanism holds up on real code" rather than a detection-rate claim.
+Ran this on five real open source projects (39 to 407 tests each: slugify, termcolor, python-string-utils, cachetools, flashtext), three scenarios per project: adding a real test, a no-op comment edit, and a constructed cheat (break a function, then delete exactly the tests that would have caught it). None of the legitimate edits were flagged, and every constructed cheat was caught. That's 15 hand-built scenarios, not a statistical benchmark, so treat it as "the mechanism holds up on real code" rather than a detection-rate claim.
+
+The scenarios are in [validation/](validation/), as a script you can run: it clones each project at a pinned commit into its own virtualenv, builds the cheat by breaking a function and deleting whatever pytest then reports as failing, and records the verdict. The results are checked in under `validation/results/`, including the raw pytest output for every run.
 
 ## development
 

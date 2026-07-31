@@ -1,0 +1,25 @@
+--- greenproof snapshot (exit 0) ---
+snapshot: captured 15 test/config files to .greenproof\baseline
+
+--- scenario B, suite handed back (exit 0) ---
+........................................................................ [ 24%]
+........................................................................ [ 49%]
+........................................................................ [ 74%]
+........................................................................ [ 98%]
+...                                                                      [100%]
+291 passed in 4.82s
+
+--- greenproof verify (exit 0) ---
+EARNED: the current code still passes the original tests
+
+--- greenproof verify --json ---
+{
+  "verdict": "earned",
+  "claimed_green": true,
+  "original_tests": {
+    "status": "passed",
+    "failed": [],
+    "errored": []
+  },
+  "test_edits": []
+}
